@@ -7,7 +7,7 @@
 import sys
 import pandas as pd
 
-sys.path.append('/Users/algo/Desktop/Algo_Trading/ShoonyaApi')
+sys.path.append('../../Algo_Trading/ShoonyaApi')
 
 import configparser
 from api_helper import ShoonyaApiPy
@@ -22,7 +22,6 @@ import datetime as dt
 import numpy as np
 from datetime import datetime
 
-import streamlit as st
 
 #login
 
@@ -261,7 +260,6 @@ def trigger_algo_pt(sl,qty):
 
 if __name__ == "__main__":
     pnl = 0
-    st.write("Hello ,let's learn how to build a streamlit app together")
     while(1):
         if (dt.datetime.now(timezone("Asia/Kolkata")).time() < dt.time(15, 10, 0) and
                dt.datetime.now(timezone("Asia/Kolkata")).time() > dt.time(9, 20, 0)):
