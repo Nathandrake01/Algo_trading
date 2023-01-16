@@ -5,6 +5,7 @@
 
 
 import sys
+import numpy as np
 import pandas as pd
 
 sys.path.append('../../Algo_Trading/ShoonyaApi')
