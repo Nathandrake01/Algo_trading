@@ -6,3 +6,4 @@ pyyaml
 pyotp
 opstrat
 scipy
+plotly
