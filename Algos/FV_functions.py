@@ -35,7 +35,7 @@ api = ShoonyaApiPy()
 ret = api.login(userid=user, password=u_pwd, twoFA=pyotp.TOTP(token).now(), vendor_code=vc,
                 api_secret=app_key, imei=imei)
 
-master_contract = pd.read_csv('https://api.shoonya.com/NFO_symbols.txt.zip', compression='zip', engine='python',
+master_contract = pd.read_csv('https://api.shoonya.com/MCX_symbols.txt.zip', compression='zip', engine='python',
                               delimiter=',')
 master_contract['Expiry'] = pd.to_datetime(master_contract['Expiry'])
 master_contract['StrikePrice'] = master_contract['StrikePrice'].astype(float)
@@ -50,10 +50,10 @@ def get_instrument(Symbol, strike_price, optiontype, expiry_offset):
                 master_contract['StrikePrice'] == strike_price)].iloc[expiry_offset])
 
 
-def get_atm_strike():
-    bnspot_token = api.searchscrip(exchange='NSE', searchtext='Nifty bank')['values'][0]['token']
+def get_atm_strike(text):
+    bnspot_token = api.searchscrip(exchange='MCX', searchtext=text)['values'][0]['token']
     while True:
-        bnflp = float(api.get_quotes(exchange='NSE', token=bnspot_token)['lp'])
+        bnflp = float(api.get_quotes(exchange='MCX', token=bnspot_token)['lp'])
         if bnflp != None:
             break
     atmprice = round(bnflp / base) * base
