@@ -3,7 +3,9 @@
 
 import configparser
 import sys
-sys.path.append('../../Algo_Trading/ShoonyaApi')
+sys.path.append('ShoonyaApi')
+sys.path.append('Algos')
+
 from api_helper import ShoonyaApiPy
 import datetime as dt
 from datetime import datetime
@@ -27,7 +29,6 @@ token = 'B6D32I442C4F743D5BVX6E76DPSBK732'
 pyotp.TOTP(token).now()
 
 base=100
-
 
 api = ShoonyaApiPy()
 
