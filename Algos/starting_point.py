@@ -5,7 +5,7 @@
 
 
 import sys
-sys.path.append('../../Algo_Trading/ShoonyaApi')
+sys.path.append('../../ShoonyaApi')
 import configparser
 from api_helper import ShoonyaApiPy
 import pandas as pd
