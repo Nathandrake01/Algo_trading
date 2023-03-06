@@ -3,3 +3,4 @@ websocket_client
 ShoonyaApi/dist/NorenRestApiPy-0.0.22-py2.py3-none-any.whl
 pandas
 pyyaml
+pyotp
