@@ -15,6 +15,7 @@ import pandas as pd
 # login
 config = configparser.ConfigParser()
 config.read('credential.ini')
+print(config)
 user = config['finvasia']['user']
 u_pwd = config['finvasia']['u_pwd']
 factor2 = config['finvasia']['factor2']
