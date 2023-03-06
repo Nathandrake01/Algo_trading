@@ -14,7 +14,7 @@ from pytz import timezone
 import datetime as dt
 from datetime import datetime
 from FV_functions import *
-from algo_logic import *
+from nine_twenty import *
 
 
 if __name__ == "__main__":
