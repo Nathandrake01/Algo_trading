@@ -99,10 +99,9 @@ def trigger_algo_pt(sl,qty,symbol="BANKNIFTY"):
     # this subscribes if CE or PE is hit
     print(ce_data["subscribe_symbol"])
     print(pe_data["subscribe_symbol"])
-    kkg = api.subscribe([ce_data["subscribe_symbol"], pe_data["subscribe_symbol"]])
+    api.subscribe([ce_data["subscribe_symbol"], pe_data["subscribe_symbol"]])
     # the below sleep is important
     sleep(3)
-    print(kkg)
 
     pe_data["sl_hit"] = 0
     pe_data["sl_hit_price"] = 0
@@ -143,8 +142,6 @@ def trigger_algo_pt(sl,qty,symbol="BANKNIFTY"):
     api.unsubscribe([ce_data["subscribe_symbol"], pe_data["subscribe_symbol"]])
     sleep(120)
     pnl = pnl_calculation(ce_data, pe_data,qty)
-  #  pnl = float(ce_data["entry_price"]) - float(ce_data["sl_hit_price"]) + float(pe_data["entry_price"]) - float(pe_data["sl_hit_price"])
-    pnl = pnl * qty
     return pnl
 
 def trigger_algo_exchange(sl,qty):
@@ -156,7 +153,7 @@ def trigger_algo_exchange(sl,qty):
     # wait for 3 seconds if order is not filled
     
     # this subscribes if CE or PE is hit
-#    api.subscribe([ce_data["subscribe_symbol"], pe_data["subscribe_symbol"]])
+    api.subscribe([ce_data["subscribe_symbol"], pe_data["subscribe_symbol"]])
     # the below sleep is important
     sleep(3)
 
@@ -165,8 +162,7 @@ def trigger_algo_exchange(sl,qty):
 
     ce_data["sl_hit"] = 0
     ce_data["sl_hit_price"] = 0
-    print("AA")
-    
+
     while (dt.datetime.now(timezone("Asia/Kolkata")).time() < dt.time(15,10,0)):
         if(float(feedJson[ce_data["token_id"]]['ltp']) > float(ce_data["entry_price"]) * (1+sl/100) and ce_data["sl_hit"] != 1):
             place_order('B',ce_data["tradingsymbol"],qty)
@@ -198,9 +194,7 @@ def trigger_algo_exchange(sl,qty):
 
     api.unsubscribe([ce_data["subscribe_symbol"], pe_data["subscribe_symbol"]])
     sleep(120)
-    pnl = pnl_calculation(ce_data, pe_data)
-  #  pnl = float(ce_data["entry_price"]) - float(ce_data["sl_hit_price"]) + float(pe_data["entry_price"]) - float(pe_data["sl_hit_price"])
-    pnl = pnl * qty
+    pnl = pnl_calculation(ce_data, pe_data,qty)
     return pnl
 
 
