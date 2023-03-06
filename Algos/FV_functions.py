@@ -23,12 +23,12 @@ vc = config['finvasia']['vc']
 app_key = config['finvasia']['app_key']
 imei = config['finvasia']['imei']
 """
-user = FA73256
-u_pwd = Lombard@1234
-factor2 = 11-11-1964
-vc = FA73256_U
-app_key = cec399ba4d05cbd209dd457d6e38dd69
-imei = abc1234
+user = "FA73256"
+u_pwd = "Lombard@1234"
+factor2 = "11-11-1964"
+vc = "FA73256_U"
+app_key = "cec399ba4d05cbd209dd457d6e38dd69"
+imei = "abc1234"
 
 
 global master_contract, api
