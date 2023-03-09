@@ -22,7 +22,7 @@ from os import system, name
 # import sleep to show output for some time period
 from time import sleep
 import opstrat as op
-import streamlit as st
+#import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
 import time
@@ -37,10 +37,12 @@ def strike_through(text):
     return result
 
 #defining containers
+"""
 header = st.container()
 select_param = st.container()
 plot_spot = st.empty()
 plot_df = st.empty()
+"""
 def get_chart_47579095(pnl):
 
     fig = px.line(pnl, x="pnl_time", y="pnl_calc", title='Day pnl')
@@ -112,39 +114,17 @@ def pnl_calculation(ce_data, pe_data,qty):
     
     pnl = ce_pnl + pe_pnl
     now = datetime.now()
- #   st.write("Current Time =", now.strftime("%H:%M:%S"))
- #   st.write("____________________________________________________________________")
     df = pd.DataFrame()
- #   pnl = pnl.append(pd.DataFrame({"pnl_time": pnl_time, "pnl_calc": pnl_calc}, index=[pnl_counter]))
-
     df = df.append(pd.DataFrame(
         {"Instrument_Name": ce_data["tradingsymbol"], "Quantity": qty, "Entry_Price": ce_data["entry_price"], "LTP":ce_ltp, "PnL":ce_pnl}, index = [0]))
     df = df.append(pd.DataFrame(
         {"Instrument_Name": pe_data["tradingsymbol"], "Quantity": qty, "Entry_Price": pe_data["entry_price"],
          "LTP": pe_ltp, "PnL": pe_pnl}, index = [1]))
 
-    st.write(df)
-#    print(df)
+ #   st.write(df)
+    print(df)
     return pnl
 
-
-"""
-    st.write("Instrument_Name","Quantity","Entry_Price", "LTP", "PnL")
-    ce_data_print = str(ce_data["tradingsymbol"])  + str(qty)  + str(ce_data["entry_price"])  + str(ce_ltp)  + str(ce_pnl)
-    pe_data_print = str(pe_data["tradingsymbol"]) + str(qty)  + str(pe_data["entry_price"])  + str(pe_ltp)  + str(pe_pnl)
-
-    if(ce_data["sl_hit"]):
-        st.write(strike_through(ce_data_print))
-    else:
-        st.write(ce_data_print)
-    if(pe_data["sl_hit"]):
-        st.write(strike_through(pe_data_print))
-    else:
-        st.write(pe_data_print)
-    st.write("PNL: ",round(pnl,2))
-    st.write("____________________________________________________________________")
-    
-"""
 
 
 def trigger_algo_pt(sl,qty,symbol="CRUDEOIL"):
@@ -184,23 +164,25 @@ def trigger_algo_pt(sl,qty,symbol="CRUDEOIL"):
             pe_data["sl_hit"] = 1
             print("PE SL hit")
         now = datetime.now()
+        pnl_calc = pnl_calculation(ce_data, pe_data, qty)
 
-        with plot_df:
-            pnl_time = now.strftime("%H:%M:%S")
-            pnl_calc = pnl_calculation(ce_data, pe_data, qty)
-            pnl = pnl.append(pd.DataFrame({"pnl_time": pnl_time, "pnl_calc": pnl_calc}, index=[pnl_counter]))
-            pnl_counter += 1
-            time.sleep(0.5)
+        """
+                with plot_df:
+                    pnl_time = now.strftime("%H:%M:%S")
+                    pnl_calc = pnl_calculation(ce_data, pe_data, qty)
+                    pnl = pnl.append(pd.DataFrame({"pnl_time": pnl_time, "pnl_calc": pnl_calc}, index=[pnl_counter]))
+                    pnl_counter += 1
+                    time.sleep(0.5)
 
-        with plot_spot:
-            get_chart_47579095(pnl)
-            time.sleep(0.5)
-
+                with plot_spot:
+                    get_chart_47579095(pnl)
+                    time.sleep(0.5)
+        """
         # if both SL hit then exit
         if (ce_data["sl_hit"] and pe_data["sl_hit"]):
             break
 
-        # if sl is not hit then take current price for pnl calculation
+    # if sl is not hit then take current price for pnl calculation
     if(ce_data["sl_hit"] != 1):
         place_order_pt('B',ce_data["tradingsymbol"],qty)
         ce_data["sl_hit_price"] = float(feedJson[ce_data["token_id"]]['ltp'])

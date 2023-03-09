@@ -3,7 +3,7 @@
 
 import configparser
 import sys
-sys.path.append('ShoonyaApi')
+sys.path.append('../ShoonyaApi')
 sys.path.append('Algos')
 
 from api_helper import ShoonyaApiPy
